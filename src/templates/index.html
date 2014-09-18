@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ATE Server.com - Bootstrap Sidebar</title>
+  <meta name="generator" content="ATE Server"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link href="/static/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/css/ate_monitor.css" rel="stylesheet">
+
+  <style type="text/css">
+    header {
+      margin-bottom: 30px;
+    }
+
+  </style>
+
+  <!-- web_socket_url -->
+  <script type="text/javascript">
+    var web_socket_url = '{{web_socket_url}}';
+  </script>
+</head>
+<!-- HTML code from ATE Server.com editor -->
+<body ng-app="ate.monitor">
+<header class="navbar navbar-default navbar-static-top" role="banner">
+  <div class="container" ng-controller="LoginController">
+    <div class="navbar-header" >
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Ate Monitor</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#/station">Station</a>
+        </li>
+        <li >
+          <a href="#">Report</a>
+        </li>
+        <li class="dropdown" ng-if="isAdmin()" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Info</a></li>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Pramaeters</a></li>
+            <li><a href="#">Debugging</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" ng-if="isAdmin()" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#/admin/test_fixtures">Test Fixtures</a></li>
+            <li><a href="#/admin/product_config">Product Config</a></li>
+            <li><a href="#/admin/stations">Stations</a></li>
+            <li><a href="#/admin/batch_numbers">Batch Numbers</a></li>
+            <li class="divider"></li>
+            <li><a href="#/admin/users" >Users</a></li>
+            </ul>
+        </li>
+        <li ng-if="isTechSupport()" >
+          <a href="#/monitor_fixtures">Monitor Fixtures</a>
+        </li>
+        <li ng-if="isTechSupport()">
+          <a href="#/monitor_stations">Monitor Stations</a>
+        </li>
+        <li ng-if="isLoggedIn()">
+          <a href="#" ng-click="logout();">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Begin Body -->
+
+<div class="container">
+    <ng-view></ng-view>
+
+</div>
+
+
+<script src="/static/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="/static/bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+<script src="/static/bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="/static/bower_components/angular-resource/angular-resource.js"></script>
+<script src="/static/bower_components/angular-route/angular-route.js"></script>
+<script src="/static/bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+<!-- ui.bootstrap is not yet install properly with bower -->
+<script src="/static/lib_manual/ui.bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+<!-- App Code and controllers -->
+<script src="/static/js/app.js"></script>
+<script src="/static/js/config.js"></script>
+<!--
+<script src="/static/js/controllers.js"></script>
+-->
+<script src="/static/js/services.js"></script>
+<script src="/static/js/services/ws_client.js"></script>
+
+<script src="/static/js/controllers/login.js"></script>
+<script src="/static/js/controllers/station.js"></script>
+<!--admin -->
+<script src="/static/js/controllers/admin/admin_product_config.js"></script>
+<script src="/static/js/controllers/admin/admin_test_fixture.js"></script>
+<script src="/static/js/controllers/admin/admin_station.js"></script>
+<script src="/static/js/controllers/admin/admin_batch_number.js"></script>
+<!--monitor -->
+<script src="/static/js/controllers/monitor/monitor_stations.js"></script>
+<script src="/static/js/controllers/monitor/monitor_fixtures.js"></script>
+
+<script src="/static/js/directives/fixture.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+*.py[cod]
+*~
+
+# Local settings
+/src/server/local_settings.py
+
+#virtual env unix
+/bin/
+/include/
+/lib/
+/local/
+
+# virtualenv windows
+/Scripts/
+/Include/
+/bin/
+/share/
+
+
+# eclipse project files
+/.project
+/.pydevproject
+
+# pycharm project file
+.idea/
