@@ -8,8 +8,6 @@ This stack aims to achieve the following
 * Single page web framework - Angular
 * ~ Mobile solution - ionicsframework
 
-I wanted to keep things as simple as possible,
-
 
 Status
 -------
@@ -17,7 +15,7 @@ The project is in a preliminary stage - any suggestion and contribution are welc
 
 Why not simply use mean stack?
 -----------------------------
-Simply because I much more comfortable with python for server development, it is a python alternative
+Simply because I much more comfortable with python for server development.
 
 
 
@@ -27,22 +25,28 @@ if you do not have python installed and access to a mongodb database please refe
 
 linux/mac
 
-#Python2
-#git clone
-#cd mongodb-tornado-angular
-#which python3
-#virtualenv --distribute -p YOUR_PYTHON_PATH .
-pip install -r requirements.txt
+Python2
+*git clone
+*cd mongodb-tornado-angular
+*which python3
+*virtualenv --distribute -p YOUR_PYTHON_PATH .
+*source bin/activate
+*pip install -r requirements.txt
+*cd server
+*python app.py
 
+Python2.x
+*git clone
+*cd mongodb-tornado-angular
+*virtualenv  .
+*source bin/activate
+*pip install -r requirements.txt
+*cd server
+*python app.py
 
-#Python2.x
-#git clone
-#cd mongodb-tornado-angular
-#virtualenv  .
-pip install -r requirements.txt
 
 Windows
-TBD:
+*TBD:
 
 
 Install software
