@@ -47,7 +47,7 @@ class ApiHandler(tornado.web.RequestHandler):
         self.render("../templates/index.html")
 app = tornado.web.Application([
                           (r'/', IndexHandler),
-                          (r'/api', ApiHandler, dict(db=db))
+                          (r'/tf', ApiHandler, dict(db=db))
                       ],
                       static_path=os.path.join(os.path.dirname(__file__), '../client/'),
                       autoreload=True
