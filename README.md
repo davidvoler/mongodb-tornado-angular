@@ -25,7 +25,7 @@ if you do not have python installed and access to a mongodb database please refe
 
 linux/mac
 
-Python2
+Python3.x
 * git clone
 * cd mongodb-tornado-angular
 * which python3
