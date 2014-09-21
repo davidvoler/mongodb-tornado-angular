@@ -13,16 +13,18 @@ from tornado import ioloop, web
 
 #adding local directory to path
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-
+#assuming a setting file exists in a local directory
 import settings
 
+#searching for a local_setting.py file that overrides default configuration
 try:
     tornado.options.parse_config_file(
         os.path.join(os.path.dirname(os.path.realpath(__file__)),'local_settings.py'),
         False)
 except Exception as e:
     #print ('local settings: {}'.format(str(e)))
-    print ('local settings not defined, using default settings')
+    #TODO: handle different exceptions
+    print ('local_settings.py not defined, using default settings')
 
 mongo_client = pymongo.MongoClient(options.mongodb_host)
 db = mongo_client[options.mongodb_name]

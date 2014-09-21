@@ -14,26 +14,28 @@ To get started with the please clone the project and checkout you corrent step
     $ cd mongodb-tornado-angular/tutorial
 
 
-Step 0
-------
-In this step you are going to create a basic tornado,
+Step 1 - basic tornado application
+----------------------------------
+In this step you are going to create a basic tornado application, We load the index.html from templates directory.
 
 .. code-block:: bash
 
-    git checkout step_1
+    cd step1/server
+    python app.py
+
+
+Step 2 - adding bootstrap css
+-----------------------------
 
 
 
+Step 3 - using tornado.options
+------------------------------
 
-Step 1
-------
 
-Step 2
-------
 
-Step 3
-------
+Step 4 - adding angular application
+-----------------------------------
 
-Step 4
-------
+
 
