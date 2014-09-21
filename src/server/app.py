@@ -14,22 +14,15 @@ from tornado import ioloop, web
 #adding local directory to path
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-define("port", default=9915, help="port", type=int)
-define("mongodb_host",default='localhost:27017', help='Monogo Database Host', type=str)
-define("mongodb_name",default='mat', help='Database Name', type=str)
+import settings
 
-#read configuration from default configuration file
-options.parse_config_file(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)),'settings.py'),
-    False)
-#if a local settings exists get information from settings
 try:
     tornado.options.parse_config_file(
         os.path.join(os.path.dirname(os.path.realpath(__file__)),'local_settings.py'),
         False)
 except Exception as e:
-    #we just use the default settings
-    print ('local settings: {}'.format(str(e)))
+    #print ('local settings: {}'.format(str(e)))
+    print ('local settings not defined, using default settings')
 
 mongo_client = pymongo.MongoClient(options.mongodb_host)
 db = mongo_client[options.mongodb_name]
@@ -47,7 +40,7 @@ class ApiHandler(tornado.web.RequestHandler):
         self.render("../templates/index.html")
 app = tornado.web.Application([
                           (r'/', IndexHandler),
-                          (r'/tf', ApiHandler, dict(db=db))
+                          (r'/api', ApiHandler, dict(db=db))
                       ],
                       static_path=os.path.join(os.path.dirname(__file__), '../client/'),
                       autoreload=True
