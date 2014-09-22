@@ -74,6 +74,8 @@ python installation instruction can be found here:
 https://www.python.org/download
 
 
+
+
 bower,node & npm
 ----------------
 Bower & npm are used to install javascript package we do not do any node developments

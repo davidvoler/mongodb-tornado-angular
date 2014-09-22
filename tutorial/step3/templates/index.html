@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>mongodb-tornado-angular - step 2</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<body>
+<body ng-app="mat.app">
 
 <header class="navbar navbar-default navbar-static-top" role="banner">
   <div class="container">
@@ -28,15 +28,12 @@
 </header>
 
 <div class="container">
-  <div class="jumbotron">
-    <h2>mongodb-tornado-angular tutorial</h2>
-    <p>Step 2</p>
-    <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-  </div>
+  <ng-view></ng-view>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.js"></script>
+<script src="/static/js/my_app.js"></script>
 
 </body>
 </html>

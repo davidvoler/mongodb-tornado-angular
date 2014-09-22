@@ -53,21 +53,44 @@ Step 3 - adding angular
 -----------------------
 Now it is time to add angualrjs
 
-First lets add the angularjs code from CDN
+First lets add the angularjs code from CDN :
 We add the angualrjs library code to the end of the body in the index.html
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
 
 Lets create a new directory: client  where we are going to store our own javascript code and html partial files.
-in the client directory we create 2 more diretories
-js
-partials
+in the client directory we create 2 more directories
+js - for javascript files
+partials - for html snippets
 
-We are going to add 3 files:
+In this step all our js code will reside in a single file
+js/my_app.js
 
-app.js
-config.js
-controllers.js
+
+
+As our js is loaded locally - we need to load it from the tornado server. We can use the static_path parameter for tornado:
+
+now after we have loaded angularjs code lets add our javascript file
+
+<script src="/static/js/app.js"></script>
+
+
+- explanation for the static syntax
+static_path=os.path.join(os.path.dirname(__file__), '..', 'client'),
+os.path.dirname(__file__) returns current directory
+os.path.join  - makes sure that this will work on windows as well as on unix like system
+on windows we will have to write:
+static_path=os.path.join(os.path.dirname(__file__), '..\\client'),
+on linux or mac
+static_path=os.path.join(os.path.dirname(__file__), '../client'),
+using os.path.join we make sure that the right path will be on any OS
+
+
+Tasks:
+Add a partial page called help.html to partials
+Add a controller for this page
+Add a menu for this page
+Add routing to this page
 
 
 Step 4 - blog

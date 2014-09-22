@@ -14,6 +14,7 @@ class IndexHandler(web.RequestHandler):
 app = tornado.web.Application([
                           (r'/', IndexHandler),
                       ],
+                      static_path=os.path.join(os.path.dirname(__file__), '..', 'client'),
                       autoreload=True
 )
 
