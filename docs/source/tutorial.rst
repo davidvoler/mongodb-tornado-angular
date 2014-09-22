@@ -51,6 +51,7 @@ http://getbootstrap.com/javascript/#modals
 
 Step 3 - adding angular
 -----------------------
+#TODO - this step should be separated to 2 or more steps
 Now it is time to add angualrjs
 
 First lets add the angularjs code from CDN :
@@ -97,7 +98,7 @@ Step 4 - blog
 -------------
 
 
-Step 3 - saving new blogs to mongods
-------------------------------------
+Step 5 - mongodb
+----------------
 
 
