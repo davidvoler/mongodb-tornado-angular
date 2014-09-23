@@ -30,6 +30,7 @@ To improve our look and feel lets add bootstrap.
 for more information about bootstrap http://getbootstrap.com/
 
 .. code-block:: bash
+
     cd step2/server
     python app.py
 
@@ -77,6 +78,7 @@ now after we have loaded angularjs code lets add our javascript file
 
 
 - explanation for the static syntax
+
 static_path=os.path.join(os.path.dirname(__file__), '..', 'client'),
 
 os.path.dirname(__file__) returns current directory
@@ -125,6 +127,7 @@ Please note that when accessing the database through mongo cli we use the javasc
 
 now lets read the documents
 .. code-block:: bash
+
     use mat
     db.blog.find()
 

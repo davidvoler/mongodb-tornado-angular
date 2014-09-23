@@ -23,3 +23,6 @@
 
 # pycharm project file
 .idea/
+
+#documentation build directory
+/docs/build/

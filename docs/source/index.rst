@@ -14,6 +14,7 @@ Contents:
    installation
    tutorial
    getting_started
+   doc
 
 
 Indices and tables
