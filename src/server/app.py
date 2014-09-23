@@ -1,5 +1,4 @@
-"""
-app.py
+"""app.py
 revision: 0.1 24.4.2014 initial by David Levy
 
 Tornado server for mongodb tornado angular tutorial

@@ -15,6 +15,11 @@ Contents:
    tutorial
    getting_started
    doc
+   app/app
+
+.. automodule::app
+
+    :members:
 
 
 Indices and tables
