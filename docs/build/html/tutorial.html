@@ -67,8 +67,8 @@ python app.py
 </pre></div>
 </div>
 </div>
-<div class="section" id="step-2-look-and-feel">
-<h2>Step 2 - look and feel<a class="headerlink" href="#step-2-look-and-feel" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-2-look-and-feel-bootstrap">
+<h2>Step 2 - look and feel - bootstrap<a class="headerlink" href="#step-2-look-and-feel-bootstrap" title="Permalink to this headline">¶</a></h2>
 <p>To improve our look and feel lets add bootstrap.
 for more information about bootstrap <a class="reference external" href="http://getbootstrap.com/">http://getbootstrap.com/</a></p>
 <p>We are loding bootstrap css file from maxcdn
@@ -85,24 +85,102 @@ The syntax href=// will load the right protocol - http or https.</p>
 </div>
 <div class="section" id="step-3-adding-angular">
 <h2>Step 3 - adding angular<a class="headerlink" href="#step-3-adding-angular" title="Permalink to this headline">¶</a></h2>
-<p>Now it is time to add angualrjs</p>
-<p>First lets add the angularjs code from CDN
+<p>#TODO - this step should be separated to 2 or more steps
+Now it is time to add angualrjs</p>
+<p>First lets add the angularjs code from CDN :
 We add the angualrjs library code to the end of the body in the index.html</p>
 <p>&lt;script src=&#8221;//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js&#8221;&gt;&lt;/script&gt;</p>
 <p>Lets create a new directory: client  where we are going to store our own javascript code and html partial files.
-in the client directory we create 2 more diretories
-js
-partials</p>
-<p>We are going to add 3 files:</p>
-<p>app.js
-config.js
-controllers.js</p>
+in the client directory we create 2 more directories
+js - for javascript files
+partials - for html snippets</p>
+<p>In this step all our js code will reside in a single file
+js/my_app.js</p>
+<p>As our js is loaded locally - we need to load it from the tornado server. We can use the static_path parameter for tornado:</p>
+<p>now after we have loaded angularjs code lets add our javascript file</p>
+<p>&lt;script src=&#8221;/static/js/app.js&#8221;&gt;&lt;/script&gt;</p>
+<ul class="simple">
+<li>explanation for the static syntax</li>
+</ul>
+<p>static_path=os.path.join(os.path.dirname(__file__), &#8216;..&#8217;, &#8216;client&#8217;),</p>
+<p>os.path.dirname(__file__) returns current directory
+os.path.join  - makes sure that this will work on windows as well as on unix like system
+on windows we will have to write:
+static_path=os.path.join(os.path.dirname(__file__), &#8216;..\client&#8217;),</p>
+<p>on linux or mac
+static_path=os.path.join(os.path.dirname(__file__), &#8216;../client&#8217;),</p>
+<p>using os.path.join we make sure that the path will be correct on on both windows and linux</p>
+<p>Tasks:
+Add a partial page called help.html to partials
+Add a controller for this page
+Add a menu for this page
+Add routing to this page</p>
 </div>
-<div class="section" id="step-4-blog">
-<h2>Step 4 - blog<a class="headerlink" href="#step-4-blog" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-4-mongodb">
+<h2>Step 4 - mongodb<a class="headerlink" href="#step-4-mongodb" title="Permalink to this headline">¶</a></h2>
+<p>We are now going to start using mongodb.
+Read more about mongodb here:
+<a class="reference external" href="http://docs.mongodb.org/manual/core/introduction/">http://docs.mongodb.org/manual/core/introduction/</a>
+You can use a gui database viewer such as robomongo for data manipulation
+<a class="reference external" href="http://robomongo.org/">http://robomongo.org/</a>
+or simply use the default shell.</p>
+<p>for using the default shell, type mongo in a terminal (or command prompt on windows)</p>
+<p>Switch to mat database (create it if not exited already)</p>
+<p>Create blog collection</p>
+<p>Add some blog documents</p>
+<p>Please note that when accessing the database through mongo cli we use the javascript api which is slightly different from the python api.</p>
+<div class="highlight-bash"><div class="highlight"><pre>use mat
+db.createCollection<span class="o">(</span><span class="s1">&#39;blog&#39;</span><span class="o">)</span>
+db.blog.insert<span class="o">({</span>title:<span class="s1">&#39;Citylife&#39;</span>,body:<span class="s1">&#39;I need a vacation&#39;</span><span class="o">})</span>
+db.blog.insert<span class="o">({</span>title:<span class="s1">&#39;Fall&#39;</span>,body:<span class="s1">&#39;Must be spring in Australia&#39;</span><span class="o">})</span>
+</pre></div>
 </div>
-<div class="section" id="step-3-saving-new-blogs-to-mongods">
-<h2>Step 3 - saving new blogs to mongods<a class="headerlink" href="#step-3-saving-new-blogs-to-mongods" title="Permalink to this headline">¶</a></h2>
+<p>now lets read the documents
+.. code-block:: bash</p>
+<blockquote>
+<div>use mat
+db.blog.find()</div></blockquote>
+<p>As we access mongodb from python/tornado we are going to use the python api - pymongo</p>
+<p>Let&#8217;s add mongodb connection code to our server
+.. code-block:: bash</p>
+<blockquote>
+<div><p>import pymongo</p>
+<p>mongo_client = pymongo.MongoClient(&#8216;localhost:27017&#8217;)
+db = mongo_client[&#8216;mat&#8217;]</p>
+</div></blockquote>
+<p>Now lets add a tornado WebHandler that will handle blog read (later it will handle also write, delete and insert)</p>
+<div class="highlight-bash"><div class="highlight"><pre>class BlogHandler<span class="o">(</span>web.RequestHandler<span class="o">)</span>:
+    def get<span class="o">(</span>self<span class="o">)</span>:
+        from bson.json_util import dumps
+        self.write<span class="o">(</span>dumps<span class="o">(</span>db<span class="o">[</span><span class="s1">&#39;blog&#39;</span><span class="o">]</span>.find<span class="o">()))</span>
+</pre></div>
+</div>
+<p>The function db[&#8216;blog&#8217;].find() will read all reacords from blog collection
+dumps will convert the data to json format
+self.write - will write the data to the client ( the browser)</p>
+<p>Now we have to tell the tornado server how to handle blog requests</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">app</span> <span class="o">=</span> tornado.web.Application<span class="o">([</span>
+                      <span class="o">(</span>r<span class="s1">&#39;/&#39;</span>, IndexHandler<span class="o">)</span>,
+                      <span class="c"># we add this line</span>
+                      <span class="o">(</span>r<span class="s1">&#39;/api/blog&#39;</span>, BlogHandler<span class="o">)</span>,
+
+
+lets start our server
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>python app.py
+</pre></div>
+</div>
+<p>open a browser at the following address</p>
+<p><a class="reference external" href="http://localhost:9915/api/blog">http://localhost:9915/api/blog</a></p>
+<p>We get the following data which is a json representation of the documents in blog collection
+[{&#8220;body&#8221;: &#8220;I need a vacation!!!&#8221;, &#8220;title&#8221;: &#8220;Citylife&#8221;, &#8220;_id&#8221;: {&#8220;$oid&#8221;: &#8220;5420f866057bc28085b0e2f9&#8221;}}, {&#8220;body&#8221;: &#8220;Must be spring in Australia&#8221;, &#8220;title&#8221;: &#8220;Fall&#8221;, &#8220;_id&#8221;: {&#8220;$oid&#8221;: &#8220;5420fe64057bc28085b0e2fa&#8221;}}]</p>
+<p>In the next step we will learn how to handle this data in angular - that is how to write REST for angular tornado</p>
+<p>Questions:
+Where did the _id field came from? we did not add this field when creating the document?</p>
+</div>
+<div class="section" id="step-5-rest-angular-tornado">
+<h2>Step 5 - REST Angular &amp; Tornado<a class="headerlink" href="#step-5-rest-angular-tornado" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -116,10 +194,10 @@ controllers.js</p>
   <ul>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
 <li><a class="reference internal" href="#step-1-basic-tornado-application">Step 1 - basic tornado application</a></li>
-<li><a class="reference internal" href="#step-2-look-and-feel">Step 2 - look and feel</a></li>
+<li><a class="reference internal" href="#step-2-look-and-feel-bootstrap">Step 2 - look and feel - bootstrap</a></li>
 <li><a class="reference internal" href="#step-3-adding-angular">Step 3 - adding angular</a></li>
-<li><a class="reference internal" href="#step-4-blog">Step 4 - blog</a></li>
-<li><a class="reference internal" href="#step-3-saving-new-blogs-to-mongods">Step 3 - saving new blogs to mongods</a></li>
+<li><a class="reference internal" href="#step-4-mongodb">Step 4 - mongodb</a></li>
+<li><a class="reference internal" href="#step-5-rest-angular-tornado">Step 5 - REST Angular &amp; Tornado</a></li>
 </ul>
 </li>
 </ul>

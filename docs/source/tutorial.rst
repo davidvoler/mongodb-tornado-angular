@@ -78,12 +78,15 @@ now after we have loaded angularjs code lets add our javascript file
 
 - explanation for the static syntax
 static_path=os.path.join(os.path.dirname(__file__), '..', 'client'),
+
 os.path.dirname(__file__) returns current directory
 os.path.join  - makes sure that this will work on windows as well as on unix like system
 on windows we will have to write:
 static_path=os.path.join(os.path.dirname(__file__), '..\\client'),
+
 on linux or mac
 static_path=os.path.join(os.path.dirname(__file__), '../client'),
+
 using os.path.join we make sure that the path will be correct on on both windows and linux
 
 
