@@ -1,8 +1,16 @@
 'use strict';
 
-angular.module('mat.app').service('Blog', ['$resource',
+angular.module('mat.app')
+.service('Blog', ['$resource',
   function ($resource) {
-    return $resource('/api', {},
+    return $resource('/api/blog', {},
+      {update: {method: 'PUT'}}
+    );
+  }
+])
+.service('Entry', ['$resource',
+  function ($resource) {
+    return $resource('/api/entry', {},
       {update: {method: 'PUT'}}
     );
   }

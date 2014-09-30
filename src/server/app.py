@@ -10,6 +10,9 @@ import pymongo
 from tornado.options import  options
 from tornado import ioloop, web
 
+from handlers.blog_handler import BlogHandler
+from handlers.entry_handler import EntryHandler
+
 #adding local directory to path
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
@@ -41,25 +44,18 @@ class IndexHandler(web.RequestHandler):
     def get(self):
         """
         Loading the main page for the application
-        As we are working in a single web page application it might be the only page to load
+        As we are working in a single web page application it will be the only page to load
         """
         self.render("../templates/index.html")
 
-class ApiHandler(tornado.web.RequestHandler):
-    def initialize(self, db):
-        """
-        Initializes the instance with a mongo database instance
-        :param db: an instance to pymongo database object
-        """
-        self._db = db
 
-    def get(self):
-        self.render("../templates/index.html")
 app = tornado.web.Application([
                           (r'/', IndexHandler),
-                          (r'/api', ApiHandler, dict(db=db))
+                          #api prefix means that we load json data
+                          (r'/api/blog', BlogHandler, dict(db=db)),
+                          (r'/api/entry', EntryHandler, dict(db=db)),
                       ],
-                      static_path=os.path.join(os.path.dirname(__file__), '../client/'),
+                      static_path=os.path.join(os.path.dirname(__file__), '..','client'),
                       autoreload=True
 )
 
