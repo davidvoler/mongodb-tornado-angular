@@ -77,31 +77,36 @@ angular.module('mat.app')
   ]
 )
 
-  .controller('EntryAddController', ['$scope', '$location', 'Entry',
-    function ($scope, $location, Entry) {
+  .controller('EntryAddController', ['$scope', '$route', 'Entry',
+    function ($scope, $route, Entry) {
       console.log('EntryAddController');
-
-      //console.log($route.current.params.slug);
-      $scope.error = '';
-      $scope.blog = {
+      $scope.slug = $route.current.params.slug;
+      console.log($route.current.params.slug);
+      $scope.entry = {
+        slug:$scope.slug,
         title: '',
         body: '',
         tags: ''
       };
+
       $scope.save = function () {
-        //is the new blog valid
-        if (!$scope.blog.name) {
-          $scope.error = 'Blog name is mandatory';
+        //is the new entry valid
+        if (!$scope.entry.title) {
+          $scope.error = 'Entry title is mandatory';
           return false;
-        } else {
+        } else if (!$scope.entry.body){
+          $scope.error = 'Entry body is mandatory';
+          return false;
+        }
+        else{
           $scope.error = '';
         }
-        var blog = new Blog($scope.blog);
-        blog.$save(function (response) {
+        var entry = new Entry($scope.entry);
+        entry.$save(function (response) {
           console.log(response);
           if (response.status == 0) {
             //$location.path('/blog/' + response.slug);
-            $location.path('/');
+            $location.path('/blog/');
           } else {
             $scope.error = response.error;
           }

@@ -20,12 +20,12 @@ angular.module('mat.app').config(['$routeProvider',
         controller: 'BlogViewController'
       })
       /*
-      .when('/entry:idx:bog_slug', {
+      .when('/entry/:idx/:bog_slug', {
         templateUrl: '/static/partials/blog.html',
         controller: 'EntryViewController'
       })
       */
-      .when('/add_entry', {
+      .when('/add_entry/:slug', {
         templateUrl: '/static/partials/entry_edit.html',
         controller: 'EntryAddController'
       })

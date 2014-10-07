@@ -35,11 +35,17 @@ class EntryHandler(tornado.web.RequestHandler):
         add a new entry
         """
         entry = loads(self.request.body.decode("utf-8"))
+        if not entry['slug']:
+            self.write(dumps({'status':-1,'error':'Blog slug is not defined'}))
+            return
+        blog = self._db['blog'].find_one({'slug':entry['slug']})
         try:
-            ret = self._db['entry'].insert(entry)
-            self.write(dumps(ret))
-        except Exception as e:
-            self.write(dumps({'status':'error','error':str(e)}))
+            blog['entries'].insert(0, entry)
+        except:
+            blog['entries'] =[]
+            blog['entries'].insert(0, entry)
+        blog = self._db['blog'].update({'slug':entry['slug']},blog)
+        self.write(dumps({'status':0}))
 
     def put(self):
         """
