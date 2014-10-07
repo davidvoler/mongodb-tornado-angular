@@ -16,7 +16,6 @@ class EntryHandler(tornado.web.RequestHandler):
     def get(self):
         """
         loads a single entry entry
-
         """
         entry_id = self.get_argument('entry_id', None)
         if entry_id:
@@ -31,13 +30,9 @@ class EntryHandler(tornado.web.RequestHandler):
             else:
                 self.write(dumps({'status':-1,'error':'Must provide ether blog_id or entry_id'}))
 
-
-
-    
     def post(self):
         """
         add a new entry
-        
         """
         entry = loads(self.request.body.decode("utf-8"))
         try:

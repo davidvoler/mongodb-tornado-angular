@@ -1,8 +1,12 @@
+<h2>Blog</h2>
 <h3>{{blog.name}}</h3>
 <div>{{blog.description}}</div>
 
-<div ng-repeat="entry in entries">
-  <div>{{entry.title}}</div>
-  <div>{{entry.content}}</div>
-  <div>{{entry.date}}</div>
-</div>
+<a href="#/add_entry">Add Entry</a>
+<table class="table">
+<tr ng-repeat="entry in blog.entries">
+  <td><a href="#/entry/$index/{{blog.slug}}" >{{entry.title}}</a></td>
+  <td>{{entry.content}}</td>
+  <td>{{entry.date}}</td>
+</tr>
+</table>

@@ -19,7 +19,17 @@ angular.module('mat.app').config(['$routeProvider',
         templateUrl: '/static/partials/blog.html',
         controller: 'BlogViewController'
       })
-    .when('/help', {
+      /*
+      .when('/entry:idx:bog_slug', {
+        templateUrl: '/static/partials/blog.html',
+        controller: 'EntryViewController'
+      })
+      */
+      .when('/add_entry', {
+        templateUrl: '/static/partials/entry_edit.html',
+        controller: 'EntryAddController'
+      })
+      .when('/help', {
         templateUrl: '/static/partials/help.html',
         controller: 'HelpController'
       })
