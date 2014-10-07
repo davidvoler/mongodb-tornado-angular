@@ -12,6 +12,7 @@ from tornado import ioloop, web
 
 from handlers.blog_handler import BlogHandler
 from handlers.entry_handler import EntryHandler
+from handlers.index_handler import IndexHandler
 
 #adding local directory to path
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
@@ -40,13 +41,6 @@ mongo_client = pymongo.MongoClient(options.mongodb_host)
 db = mongo_client[options.mongodb_name]
 
 
-class IndexHandler(web.RequestHandler):
-    def get(self):
-        """
-        Loading the main page for the application
-        As we are working in a single web page application it will be the only page to load
-        """
-        self.render("../templates/index.html")
 
 def init_db(db):
     try:
@@ -67,13 +61,18 @@ def init_db(db):
     db['user'].ensure_index('_id', unique=True)
 
 
+if options.mobile_version:
+    static_path = options.mobile_static_path
+else:
+    static_path = options.static_path
+
 app = tornado.web.Application([
                           (r'/', IndexHandler),
                           #api prefix means that we load json data
                           (r'/api/blog', BlogHandler, dict(db=db)),
                           (r'/api/entry', EntryHandler, dict(db=db)),
                       ],
-                      static_path=os.path.join(os.path.dirname(__file__), '..','client'),
+                      static_path=static_path,
                       autoreload=True
 )
 
