@@ -1,0 +1,13 @@
+<h3>{{blog.name}}</h3>
+
+<form role="form">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input ng-model="blog.name" class="form-control" id="name" placeholder="Enter blog name">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" ng-model="blog.description"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>

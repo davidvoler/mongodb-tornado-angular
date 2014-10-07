@@ -26,7 +26,7 @@ if you do not have python installed and access to a mongodb database please refe
 linux/mac
 
 Python3.x
-* git clone 
+* git clone https://github.com/davidvoler/mongodb-tornado-angular.git
 * cd mongodb-tornado-angular
 * which python3
 * virtualenv --distribute -p YOUR_PYTHON3_PATH .
@@ -36,7 +36,7 @@ Python3.x
 * python app.py
 
 Python2.x
-* git clone
+* git clone https://github.com/davidvoler/mongodb-tornado-angular.git
 * cd mongodb-tornado-angular
 * virtualenv  .
 * source bin/activate
