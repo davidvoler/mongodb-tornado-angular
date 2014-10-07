@@ -65,11 +65,11 @@ angular.module('mat.app')
 )
 
   .controller('EntryViewController', ['$scope', '$route', 'Entry',
-    function ($scope, $route, Blog) {
-      console.log($route.current.params.blog_slug);
+    function ($scope, $route, Entry) {
+      console.log($route.current.params.slug);
       console.log($route.current.params.idx);
       $scope.error = '';
-      $scope.entry = Entry.get({blog_slug: $route.current.params.blog_slug,
+      $scope.entry = Entry.get({slug: $route.current.params.slug,
         idx: $route.current.params.idx}, function () {
         console.log($scope.entry);
       });
@@ -77,8 +77,8 @@ angular.module('mat.app')
   ]
 )
 
-  .controller('EntryAddController', ['$scope', '$route', 'Entry',
-    function ($scope, $route, Entry) {
+  .controller('EntryAddController', ['$scope', '$route','$location', 'Entry',
+    function ($scope, $route,$location, Entry) {
       console.log('EntryAddController');
       $scope.slug = $route.current.params.slug;
       console.log($route.current.params.slug);
@@ -106,7 +106,7 @@ angular.module('mat.app')
           console.log(response);
           if (response.status == 0) {
             //$location.path('/blog/' + response.slug);
-            $location.path('/blog/');
+            $location.path('/blog/'+$scope.slug);
           } else {
             $scope.error = response.error;
           }

@@ -17,18 +17,12 @@ class EntryHandler(tornado.web.RequestHandler):
         """
         loads a single entry entry
         """
-        entry_id = self.get_argument('entry_id', None)
-        if entry_id:
-            entry = self._db['entry'].find_one({'entry_id':entry_id})
-            self.write(dumps(entry))
-            return
-        else:
-            blog_id =  self.get_argument('blog_id', None)
-            if blog_id:
-                entries = self._db['entry'].find({'blog_id':blog_id})
-                self.write(dumps(entries))
-            else:
-                self.write(dumps({'status':-1,'error':'Must provide ether blog_id or entry_id'}))
+        slug = self.get_argument('slug', None)
+        idx = int(self.get_argument('idx', None))
+        print(slug,idx)
+
+        blog = self._db['blog'].find_one({'slug':slug})
+        self.write(dumps(blog['entries'][idx]))
 
     def post(self):
         """
