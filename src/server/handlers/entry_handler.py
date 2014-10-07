@@ -1,5 +1,5 @@
 """
-entry handler will query,get,add and delete entries, that is documents of the entry collection
+Entry handler will query,get,add and delete entrys, that is documents of the entry collection
 """
 import tornado
 from bson.objectid import ObjectId
@@ -22,17 +22,6 @@ class EntryHandler(tornado.web.RequestHandler):
         entry = self._db['entry'].find_one({'_id':ObjectId(_id)})
         self.write(dumps(entry))
 
-    def query(self):
-        """
-        loads a list of entry - using a query dict
-        """
-        qu = loads(self.request.body.decode("utf-8"))
-        if qu:
-            entries = self._db['entry'].find(qu)
-        else:
-            #rturn all entry_entries
-            entries = self._db['entry'].find()
-        self.write(dumps(entries))
     
     def post(self):
         """

@@ -4,6 +4,7 @@ Blog handler will query,get,add and delete blogs, that is documents of the blog 
 import tornado
 from bson.objectid import ObjectId
 from bson.json_util import dumps, loads
+from slugify import slugify
 
 class BlogHandler(tornado.web.RequestHandler):
     def initialize(self, db):
@@ -22,17 +23,6 @@ class BlogHandler(tornado.web.RequestHandler):
         blog = self._db['blog'].find_one({'_id':ObjectId(_id)})
         self.write(dumps(blog))
 
-    def query(self):
-        """
-        loads a list of blog - using a query dict
-        """
-        qu = loads(self.request.body.decode("utf-8"))
-        if qu:
-            blogs = self._db['blog'].find(qu)
-        else:
-            #rturn all blog_entries
-            blogs = self._db['blog'].find()
-        self.write(dumps(blogs))
     
     def post(self):
         """
@@ -40,20 +30,35 @@ class BlogHandler(tornado.web.RequestHandler):
         
         """
         blog = loads(self.request.body.decode("utf-8"))
+        if not blog['name']:
+            self.write(dumps({'status':-1,'error':'name is mandatory'}))
+            return
+        #create a slug for the blog
+        slug = slugify(blog['name'])
+        #make sure slug in unique in blog collection
+        # the following request will return all slug in the collection
+        blog_slugs = self._db['blog'].distinct('slug')
+
+        nslug = slug
+        i=0
+        while nslug in blog_slugs:
+            nslug = '{}-{}'.format(slug, i)
+            i+=1
+        blog['slug']=nslug
         try:
-            ret = self._db['blog'].insert(blog)
-            self.write(dumps(ret))
+            self._db['blog'].insert(blog)
+            self.write({'status':0,'error':'','slug':blog['slug']})
         except Exception as e:
-            self.write(dumps({'status':'error','error':str(e)}))
+            self.write(dumps({'status':-2,'error':str(e)}))
 
     def put(self):
         """
-        edit an existing blog
+        updates an existing blog
         
         """
-        argj = loads(self.request.body.decode("utf-8"))
+        blog = loads(self.request.body.decode("utf-8"))
         try:
-            ret = self._db['blog'].update({'_id':ObjectId(argj['_id'])}, {"$set": argj}, upsert=False)
+            ret = self._db['blog'].update({'_id':ObjectId(blog['_id'])}, {"$set": blog}, upsert=False)
             self.write(dumps(ret))
         except Exception as e:
             self.write(dumps({'status':'error','error':str(e)}))

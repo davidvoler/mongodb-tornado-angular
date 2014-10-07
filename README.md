@@ -26,10 +26,10 @@ if you do not have python installed and access to a mongodb database please refe
 linux/mac
 
 Python3.x
-* git clone
+* git clone 
 * cd mongodb-tornado-angular
 * which python3
-* virtualenv --distribute -p YOUR_PYTHON_PATH .
+* virtualenv --distribute -p YOUR_PYTHON3_PATH .
 * source bin/activate
 * pip install -r requirements.txt
 * cd server

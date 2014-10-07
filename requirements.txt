@@ -1,2 +1,4 @@
 tornado
 pymongo
+python-slugify
+
