@@ -15,7 +15,7 @@ define("templates_dir",
 define("static_path",
        default=os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','client'),
        help='static path', type=str)
-define("mobile_version",default=1, help='start mobile version', type=int)
+define("mobile_version",default=0, help='start mobile version', type=int)
 define("mobile_templates_dir",
        default=os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','mobile','www'),
        help='mobile templates directory', type=str)
