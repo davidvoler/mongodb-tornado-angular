@@ -48,6 +48,24 @@ class IndexHandler(web.RequestHandler):
         """
         self.render("../templates/index.html")
 
+def init_db(db):
+    try:
+        db.create_collection('blog')
+    except:
+        pass
+    db['blog'].ensure_index('slug', unique=True)
+    db['blog'].ensure_index('_id', unique=True)
+    try:
+        db.create_collection('user')
+    except:
+        pass
+    try:
+        db['user'].insert({'username':'admin','password':'admin','role':'admin'})
+    except:
+        pass
+    db['user'].ensure_index('username', unique=True)
+    db['user'].ensure_index('_id', unique=True)
+
 
 app = tornado.web.Application([
                           (r'/', IndexHandler),
@@ -62,6 +80,8 @@ app = tornado.web.Application([
 if __name__ == '__main__':
     #read settings from commandline
     options.parse_command_line()
+    if options.init_db:
+        init_db(db)
     print ('server running on http://localhost:{}'.format(options.port))
     app.listen(options.port,xheaders=True)
     ioloop = tornado.ioloop.IOLoop.instance()

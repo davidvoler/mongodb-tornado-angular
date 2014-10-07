@@ -8,7 +8,7 @@ angular.module('mat.app')
   ]
 )
   .controller('BlogAddController', ['$scope', '$location', 'Blog',
-    function ($scope, Blog) {
+    function ($scope, $location, Blog) {
       $scope.error = '';
       $scope.blog = {
         name: '',
@@ -27,7 +27,8 @@ angular.module('mat.app')
         blog.$save(function (response) {
           console.log(response);
           if (response.status == 0) {
-            $location.path('/blog/' + response.slug);
+            //$location.path('/blog/' + response.slug);
+            $location.path('/');
           } else {
             $scope.error = response.error;
           }
@@ -52,11 +53,19 @@ angular.module('mat.app')
     }
   ]
 )
-
+ .controller('BlogViewController', ['$scope', '$route', 'Blog',
+    function ($scope, $route, Blog) {
+      console.log($route.current.params.slug);
+      $scope.error = '';
+      $scope.blog = Blog.get({slug: $route.current.params.slug},function(){
+        console.log( $scope.blog);
+      });
+    }
+  ]
+)
   .controller('BlogEditController', ['$scope', 'Blog',
     function ($scope, Blog) {
       $scope.createBlog = function () {
-
       }
     }
   ]

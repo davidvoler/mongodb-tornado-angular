@@ -1,4 +1,11 @@
-<div>
-  <h3>Home</h3>
-  Name of controller:{{controllerName}}
-</div>
+<h3>Home</h3>
+
+<a href="#blog/add">Create Blog</a>
+<div ng-repeat="blog in blogs"></div>
+
+<table class="table">
+  <tr ng-repeat="blog in blogs">
+    <td><a href="#/blog/{{blog.slug}}"> {{blog.name}}</a></td>
+    <td>{{blog.description}}</td>
+  </tr>
+</table>

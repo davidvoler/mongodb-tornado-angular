@@ -19,8 +19,10 @@ class BlogHandler(tornado.web.RequestHandler):
         loads a single blog entry
         """
         slug = self.get_argument('slug', None)
+        print (slug)
         if slug:
             blog = self._db['blog'].find_one({'slug':slug})
+            print (blog)
             self.write(dumps(blog))
         else:
             blogs = self._db['blog'].find()
