@@ -52,7 +52,12 @@ Python2.x
 Windows
 
 With Pycharm
-* T.B.D
+* git clone https://github.com/davidvoler/mongodb-tornado-angular.git
+* cd mongodb-tornado-angular
+* activate mongodb 
+* python app.py
+
+
 
 
 
