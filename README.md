@@ -51,7 +51,7 @@ Python2.x
 
 Windows
 
-With Pycharm
+With Pycharm(Python2.x)
 * git clone https://github.com/davidvoler/mongodb-tornado-angular.git
 * cd mongodb-tornado-angular
 * activate mongodb 
