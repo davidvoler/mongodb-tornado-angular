@@ -50,7 +50,11 @@ Python2.x
 
 
 Windows
-* TBD:
+With Pycharm
+*
+*
+*
+*
 
 
 Install software
