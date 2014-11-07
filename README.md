@@ -17,7 +17,7 @@ Documentation
 -------------
 http://mongodb-tornado-angular.readthedocs.org/en/latest/
 
-Why not simply use mean stack?
+Why not use mean stack?
 -----------------------------
 Simply because I much more comfortable with python for server development.
 
