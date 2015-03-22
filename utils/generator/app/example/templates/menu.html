@@ -1,0 +1,118 @@
+<header class="navbar navbar-default navbar-static-top ate-tester-navbar-panel" role="banner">
+    <div class="container-fluid" ng-controller="LoginController">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--
+            <a href="#/" class="navbar-brand">Ate Test {%if dev_mode %}Developer {% else%}Station{%end%} </a>
+            -->
+            <a href="#/" class="navbar-brand">Ate Station v.{{ version }}</a>
+        </div>
+        <nav class="collapse navbar-collapse" role="navigation" ng-controller="MenuController as menu">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#/station" translate>Station</a>
+                </li>
+                <li ng-if="menu.hasPermission('monitor')" class="btn-group" dropdown>
+                    <a href="#" class="dropdown-toggle" role="menu" dropdown-toggle>
+                        <span translate>Monitor</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="/monitor/#/report" translate="">Reports</a>
+                        </li>
+                        <li>
+                            <a href="/monitor/#/stats" translate="">Statistics</a>
+                        </li>
+                        <li>
+                            <a href="/monitor/#/dashboard" translate>Dashboard</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-if="menu.hasPermission('admin')" class="btn-group" dropdown>
+                    <a href="#" class="dropdown-toggle" role="menu" dropdown-toggle>
+                        <span translate>Admin</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/admin/#/projectEditor" translate="">Project Families</a>
+                        </li>
+                        <li>
+                            <a href="/admin/#/fixtures" translate="">Test Fixtures</a>
+                        </li>
+                        <li>
+                            <a href="/admin/#/stations" translate="">Stations</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/admin/#/users" translate="">Users</a>
+                        </li>
+                        <li>
+                            <a href="/admin/#/groups" translate="">Groups</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a target="_blank" href="{{kibana_url}}" translate>Kibana</a>
+                </li>
+                <li>
+                    <a target="_blank" href="{{flower_url}}" translate>Flower</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="btn-group" dropdown>
+                    <a href="#" class="dropdown-toggle" role="menu" dropdown-toggle>
+                        <span ng-bind="theme"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="theme in menu.getThemes()">
+                            <a ng-click="menu.setTheme(theme)" ng-bind="theme"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="btn-group" dropdown>
+                    <a href="#" class="dropdown-toggle" role="menu" dropdown-toggle>
+                        <span translate>Help</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a ng-click="menu.help();" ng-click="menu.help('station_page')" translate>Station Help</a>
+                        </li>
+                        <li>
+                            <a ng-click="menu.about();" translate>About</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-if="menu.isLoggedIn()" class="btn-group" dropdown>
+                    <a href="#" class="dropdown-toggle" role="menu" dropdown-toggle>
+                        <span ng-bind="menu.getUsername()"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li>
+                            <a ng-click="menu.preference();" translate>Preferences</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a ng-click="menu.logout();" translate>Logout</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-if="!menu.isLoggedIn()">
+                    <a href="#/login" translate>Login</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
