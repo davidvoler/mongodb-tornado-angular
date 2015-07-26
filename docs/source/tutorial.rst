@@ -1,9 +1,9 @@
 Tutorial
 ========
 
-In this tutorial we are going to learn how use the mongodb-tronado-angualr framework
+In this tutorial we are going to learn how use the mongodb-tornado-angular framework
 
-To get started with the please clone the project and checkout you corrent step
+To get started with the please clone the project and checkout your current step
 
 .. code-block:: bash
 
